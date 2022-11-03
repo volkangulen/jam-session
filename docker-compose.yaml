@@ -1,0 +1,47 @@
+version: '3.7'
+services:
+  postgres:
+    build:
+      context: ./postgres
+      dockerfile: Dockerfile
+    container_name: postgres
+    volumes:
+      - ./postgres/pgdata:/var/lib/postgresql/data
+    env_file:
+      - ./.env
+    ports:
+      - '5433:5432'
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'pg_isready', '-q', '-d', 'postgres', '-U', 'postgres']
+      interval: 30s
+      start_period: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      jamSession:
+        aliases:
+          - postgresql
+
+  jam:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: jam
+    environment:
+      - POSTGRES_HOST=postgres
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    env_file:
+      - ./.env
+    networks:
+      jamSession:
+        aliases:
+          - application
+
+networks:
+  jamSession:
+    driver: bridge

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+set -u
+
+echo "  Creating user $POSTGRES_USER and database '$POSTGRESS_DB'"
+psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" <<-EOSQL
+    CREATE USER $POSTGRES_USER with encrypted password '$POSTGRESS_PASSWORD';
+    CREATE DATABASE $POSTGRESS_DB;
+    GRANT ALL PRIVILEGES ON DATABASE $POSTGRESS_DB TO $POSTGRES_USER;
+EOSQL
+
