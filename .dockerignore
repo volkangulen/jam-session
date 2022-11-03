@@ -1,0 +1,8 @@
+.git
+
+README.md
+yarn*.lock
+.prettierrc
+
+src/test*
+

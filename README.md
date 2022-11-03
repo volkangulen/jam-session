@@ -29,20 +29,19 @@
 ## Installation
 
 ```bash
-$ npm install
+$ yarn
 ```
 
-## Running the app
+## Running the app with Docker compose
 
 ```bash
-# development
-$ npm run start
+docker-compose up
+```
 
-# watch mode
-$ npm run start:dev
+## Running the app with Docker compose in daemon mode
 
-# production mode
-$ npm run start:prod
+```bash
+docker-compose up -d
 ```
 
 ## Test
@@ -71,4 +70,5 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
 # jam-session
